@@ -1,0 +1,132 @@
+swagger: "2.0"
+info:
+  description: "Lab 7"
+  version: "1.0.0"
+  title: "Student microservice"
+  contact:
+    email: "apiteam@swagger.io"
+host: "student"
+basePath: "/v1"
+schemes:
+- "http"
+paths:
+  /students:
+    get:
+      tags:
+      - "students"
+      summary: "Get all students"
+      operationId: "readStudents"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: ""
+          schema:
+            type:
+              "array"
+            items:
+              $ref: "#/definitions/Student"
+        404:
+          description: "Not found"
+    post:
+      tags:
+      - "students"
+      summary: "Create new student"
+      operationId: "createStudent"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/Student"
+      responses:
+        200:
+          description: ""
+          schema:
+            $ref: "#/definitions/Student"
+        400:
+          description: "Bad request"
+    put:
+      tags:
+        - "students"
+      summary: "Update student"
+      operationId: "updateStudent"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/Student"
+      responses:
+        200:
+          description: ""
+          schema:
+            $ref: "#/definitions/Student"
+        400:
+          description: "Bad request"
+  /students/{id}:
+    get:
+      tags:
+        - "students"
+      summary: "Get student by id"
+      operationId: "readStudent"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "Student ID"
+          required: true
+          type: "integer"
+      responses:
+        200:
+          description: ""
+          schema:
+            $ref: "#/definitions/Student"
+        404:
+          description: "Not found"
+    delete:
+      tags:
+        - "students"
+      summary: "Delete student by id"
+      operationId: "deleteStudent"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "Student ID"
+          required: true
+          type: "integer"
+      responses:
+        200:
+          description: "Ok"
+        404:
+          description: "Not found"
+definitions:
+  Student:
+    type: "object"
+    required:
+      - id
+      - name
+    properties:
+      id:
+        type: "integer"
+      name:
+        type: "string"
+      group:
+        type: "string"
